@@ -1,6 +1,6 @@
 "use client";
 
-
+import Image from 'next/image';
 import React, { useState, useEffect } from 'react';
 
 // Kartların görsel ve anlam verileri
@@ -354,7 +354,7 @@ export default function TarotApp() {
                 width: "90px",
               }}
             >
-              <img
+              <Image
                 src={card.img}
                 alt={card.name}
                 className="w-full h-full object-cover rounded-lg opacity-0" // Kartın arkasında görsel gizlendi
@@ -378,7 +378,10 @@ export default function TarotApp() {
               const cardDetails = getCardDetails(cardName);
               return (
                 <div key={cardName} className="mb-4">
-                  <img src={cardDetails?.img} alt={cardName} className="w-32 mx-auto" />
+                  <Image
+                  src={cardDetails?.img}
+                  alt={cardName}
+                  className="w-32 mx-auto" />
                   <h4 className="text-xl">{cardName}</h4>
                   <p>{cardDetails?.description}</p>
                   <p className="italic mt-2">{getPersonalizedComment(cardName)}</p>

@@ -1,5 +1,6 @@
 'use client';
 import React, { useState } from 'react';
+import Image from 'next/image'; // Import Image
 
 interface Customization {
   title: string;
@@ -134,10 +135,12 @@ const SiteCreator: React.FC = () => {
             />
             {customization.image && (
               <div className="flex justify-center mt-4">
-                <img
+                <Image
                   src={customization.image}
                   alt="Uploaded"
-                  className="max-w-[300px] max-h-[300px] object-cover"
+                  width={300}
+                  height={300}
+                  className="object-cover"
                 />
               </div>
             )}
@@ -172,10 +175,12 @@ const SiteCreator: React.FC = () => {
             <p className="text-xl">{customization.subtitle}</p>
             {customization.image && (
               <div className="mt-4 flex justify-center">
-                <img
+                <Image
                   src={customization.image}
                   alt="Custom"
-                  className="max-w-[300px] max-h-[300px] object-cover"
+                  width={300}
+                  height={300}
+                  className="object-cover"
                 />
               </div>
             )}

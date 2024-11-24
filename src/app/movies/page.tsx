@@ -1,14 +1,22 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-
+import Image from 'next/image';
 // TMDb API anahtarınızı buraya ekleyin
 const API_KEY = 'bfe71cb56fab1a9f089cfae3304faf9f';
+// Define the type for the movie object
+interface Movie {
+  id: number;
+  title: string;
+  overview: string;
+  vote_average: number;
+  poster_path: string;
+}
 
 const FilmRecommendation: React.FC = () => {
   const [user1Selection, setUser1Selection] = useState<number[]>([]); // Kullanıcı 1 seçimi
   const [user2Selection, setUser2Selection] = useState<number[]>([]); // Kullanıcı 2 seçimi
-  const [movies, setMovies] = useState<any[]>([]); // Film verileri
+  const [movies, setMovies] = useState<Movie[]>([]); // Film verileri, type is now Movie[]
 
   const categories = [
     { id: 28, name: 'Aksiyon' },
@@ -59,7 +67,7 @@ const FilmRecommendation: React.FC = () => {
             `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&with_genres=${genreIds}`
           );
           const filteredMovies = response.data.results.filter(
-            (movie: { vote_average: number; }) => movie.vote_average > 6
+            (movie: Movie) => movie.vote_average > 6
           ); // 6.5 üzerindeki filmleri filtrele
           setMovies(filteredMovies.slice(0, 21)); // İlk 9 filmi al
         } catch (error) {
@@ -71,7 +79,6 @@ const FilmRecommendation: React.FC = () => {
   }, [user1Selection, user2Selection]);
 
   return (
-
     <div className="container mx-auto p-6">
       <nav className="w-full flex justify-between items-center bg-transparent p-4 shadow-lg">
         <div className="text-white text-2xl font-bold">Brand</div>
@@ -122,7 +129,7 @@ const FilmRecommendation: React.FC = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 text-black">
         {movies.map((movie) => (
           <div key={movie.id} className="rounded-lg shadow-lg bg-white overflow-hidden">
-            <img
+            <Image
               src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
               alt={movie.title}
               className="w-full h-[300px] object-cover"
