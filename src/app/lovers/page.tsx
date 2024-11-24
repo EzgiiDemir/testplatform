@@ -9,7 +9,7 @@ interface Customization {
 }
 
 const SiteCreator: React.FC = () => {
-  const [selectedTheme, setSelectedTheme] = useState<string | null>(null);
+  const [, setSelectedTheme] = useState<string | null>(null);
   const [customization, setCustomization] = useState<Customization>({
     title: '',
     subtitle: '',
