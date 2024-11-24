@@ -3,30 +3,71 @@
 import { useState } from "react";
 
 export default function Anket() {
-  const [answers, setAnswers] = useState<Record<string, string>>({
-    question1: "",
-    question2: "",
-    question3: "",
-    question4: "",
-    question5: "",
-    question6: "",
-    question7: "",
-    question8: "",
-    question9: "",
-    question10: "",
-    question11: "",
-    question12: "",
-    question13: "",
-    question14: "",
-    question15: "",
-    question16: "",
-    question17: "",
-    question18: "",
-    question19: "",
-    question20: "",
-  });
-
+  const [answers, setAnswers] = useState<Record<string, string>>({});
   const [result, setResult] = useState("");
+
+  const questions = [
+    "Teknik problemleri çözmekten hoşlanır mısınız?",
+    "İnsanlara bilgi öğretmek veya yönlendirmek size keyif verir mi?",
+    "Sağlık alanında başkalarına yardım etmeyi sever misiniz?",
+    "Takım sporlarına katılmaktan veya fiziksel aktivitelerden hoşlanır mısınız?",
+    "Sanatsal aktivitelerle ilgilenir misiniz (resim, müzik, yazarlık)?",
+    "Liderlik rollerinde kendinizi rahat hisseder misiniz?",
+    "Analitik düşünme veya karmaşık problemlere çözüm bulmak sizin için çekici mi?",
+    "Doğa veya çevre ile ilgili çalışmalar yapmak hoşunuza gider mi?",
+    "İnsanlarla iletişim kurmayı ve onların problemlerine çözümler sunmayı sever misiniz?",
+    "Yeni teknolojiler veya yazılımlar keşfetmek ilginizi çeker mi?",
+    "Tasarım ve estetik üzerine çalışmayı sever misiniz?",
+    "Finansal analiz veya işletme yönetimi ile ilgilenir misiniz?",
+    "Yaratıcılık gerektiren bir projede yer almak sizi mutlu eder mi?",
+    "Hukuki problemlerle ilgilenmek veya adalet için çalışmak ilginizi çeker mi?",
+    "Bilimsel araştırmalar veya deneyler yapmak sizin için ilgi çekici mi?",
+    "Bağımsız çalışmayı mı, yoksa ekip çalışmalarını mı tercih edersiniz?",
+    "Zihinsel olarak karmaşık oyunlar veya bulmacalar çözmekten keyif alır mısınız?",
+    "Kendi başınıza proje veya iş geliştirmek sizin için motive edici mi?",
+    "Sosyal sorumluluk projelerine katılmayı sever misiniz?",
+    "Seyahat ederek farklı kültürler ve insanlar tanımaktan hoşlanır mısınız?",
+  ];
+
+  const categories = {
+    Engineering: 0,
+    Teaching: 0,
+    Healthcare: 0,
+    Sports: 0,
+    Arts: 0,
+    Business: 0,
+    Law: 0,
+    Science: 0,
+    Social: 0,
+    Technology: 0,
+  };
+
+  type CategoryKeys = keyof typeof categories;
+
+  // Typing 'weights' as Record<string, Partial<Record<CategoryKeys, number>>> ensures that
+  // we can safely index 'weights' with a string key, and the values will be partial objects with category names as keys.
+  const weights: Record<string, Partial<Record<CategoryKeys, number>>> = {
+    question1: { Engineering: 1, Technology: 1 },
+    question2: { Teaching: 1 },
+    question3: { Healthcare: 1, Social: 1 },
+    question4: { Sports: 1 },
+    question5: { Arts: 1 },
+    question6: { Business: 1, Social: 1 },
+    question7: { Engineering: 1, Science: 1 },
+    question8: { Science: 1, Social: 1 },
+    question9: { Social: 1 },
+    question10: { Technology: 1, Engineering: 1 },
+    question11: { Arts: 1, Technology: 1 },
+    question12: { Business: 1 },
+    question13: { Arts: 1 },
+    question14: { Law: 1 },
+    question15: { Science: 1 },
+    question16: { Social: 1, Arts: 1 },
+    question17: { Engineering: 1, Technology: 1 },
+    question18: { Business: 1, Social: 1 },
+    question19: { Social: 1 },
+    question20: { Social: 1, Arts: 1 },
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setAnswers({
@@ -36,73 +77,45 @@ export default function Anket() {
   };
 
   const analyzeResults = (answers: Record<string, string>) => {
-    const categories = {
-      Engineering: 0,
-      Teaching: 0,
-      Healthcare: 0,
-      Sports: 0,
-      Arts: 0,
-      Business: 0,
-      Law: 0,
-      Others: 0,
-    };
-
-    // Buradaki weights nesnesinin sorulara göre doğru değerleri içerdiğinden emin olun
-    const weights = {
-      question1: { Engineering: 1, Teaching: 0, Healthcare: 0, Sports: 0, Arts: 0, Business: 0, Law: 0 },
-      question2: { Engineering: 1, Teaching: 0, Healthcare: 0, Sports: 0, Arts: 0, Business: 0, Law: 0 },
-      question3: { Engineering: 0, Teaching: 1, Healthcare: 0, Sports: 0, Arts: 0, Business: 0, Law: 0 },
-      question4: { Engineering: 0, Teaching: 1, Healthcare: 0, Sports: 0, Arts: 0, Business: 0, Law: 0 },
-      question5: { Engineering: 0, Teaching: 0, Healthcare: 1, Sports: 0, Arts: 0, Business: 0, Law: 0 },
-      question6: { Engineering: 0, Teaching: 0, Healthcare: 1, Sports: 0, Arts: 0, Business: 0, Law: 0 },
-      question7: { Engineering: 0, Teaching: 0, Healthcare: 0, Sports: 1, Arts: 0, Business: 0, Law: 0 },
-      question8: { Engineering: 0, Teaching: 0, Healthcare: 0, Sports: 1, Arts: 0, Business: 0, Law: 0 },
-      question9: { Engineering: 0, Teaching: 0, Healthcare: 0, Sports: 0, Arts: 1, Business: 0, Law: 0 },
-      question10: { Engineering: 0, Teaching: 0, Healthcare: 0, Sports: 0, Arts: 1, Business: 0, Law: 0 },
-      question11: { Engineering: 0, Teaching: 0, Healthcare: 0, Sports: 0, Arts: 0, Business: 1, Law: 0 },
-      question12: { Engineering: 0, Teaching: 0, Healthcare: 0, Sports: 0, Arts: 0, Business: 1, Law: 0 },
-      question13: { Engineering: 0, Teaching: 0, Healthcare: 0, Sports: 0, Arts: 0, Business: 0, Law: 1 },
-      question14: { Engineering: 0, Teaching: 0, Healthcare: 0, Sports: 0, Arts: 0, Business: 0, Law: 1 },
-      question15: { Engineering: 0, Teaching: 0, Healthcare: 0, Sports: 0, Arts: 0, Business: 1, Law: 0 },
-      question16: { Engineering: 1, Teaching: 0, Healthcare: 0, Sports: 0, Arts: 0, Business: 0, Law: 0 },
-      question17: { Engineering: 0, Teaching: 1, Healthcare: 0, Sports: 0, Arts: 0, Business: 0, Law: 0 },
-      question18: { Engineering: 0, Teaching: 0, Healthcare: 1, Sports: 0, Arts: 0, Business: 0, Law: 0 },
-      question19: { Engineering: 0, Teaching: 0, Healthcare: 0, Sports: 0, Arts: 1, Business: 0, Law: 0 },
-      question20: { Engineering: 0, Teaching: 0, Healthcare: 0, Sports: 1, Arts: 0, Business: 0, Law: 0 },
-    };
+    const categoryScores = { ...categories };
 
     Object.keys(answers).forEach((question) => {
-      const answerValue = parseInt(answers[question] || '0');
-      // Sadece `weights[question]` tanımlandığında işlem yapılacak
+      const value = parseInt(answers[question] || "0");
       if (weights[question]) {
-        Object.keys(categories).forEach((category) => {
-          categories[category] += (answerValue * (weights[question][category] || 0));
+        Object.keys(weights[question]!).forEach((category) => {
+          categoryScores[category as CategoryKeys] += value * (weights[question]![category as CategoryKeys] || 0);
         });
       }
     });
 
-    const maxCategory = Object.keys(categories).reduce((a, b) =>
-      categories[a] > categories[b] ? a : b
+    const maxCategory = Object.keys(categoryScores).reduce((a, b) =>
+      categoryScores[a as CategoryKeys] > categoryScores[b as CategoryKeys] ? a : b
     );
 
-    switch (maxCategory) {
-      case "Engineering":
-        return "Mühendislik alanında güçlü bir profile sahipsiniz. Bu alanda yazılım, inşaat, makine, elektronik gibi farklı dallarda başarılı olabilirsiniz.";
-      case "Teaching":
-        return "Öğretmenlik ve eğitim alanında potansiyeliniz yüksek. Eğitim teknolojileri, özel eğitim, çocuk gelişimi gibi alanlarda fırsatlar bulabilirsiniz.";
-      case "Healthcare":
-        return "Sağlık sektöründe başarılı olabilirsiniz. Doktorluk, hemşirelik, fizyoterapi, diyetisyenlik gibi alanlar ilginizi çekebilir.";
-      case "Sports":
-        return "Spor ve fiziksel aktivitelere olan ilginiz yüksek. Spor antrenörlüğü, spor yönetimi veya rehabilitasyon gibi kariyer seçenekleri olabilir.";
-      case "Arts":
-        return "Sanat ve yaratıcılık alanında yetenekleriniz dikkat çekici. Grafik tasarım, moda, müzik, sinema gibi yaratıcı alanlarda başarılı olabilirsiniz.";
-      case "Business":
-        return "İş dünyasında başarılı olma potansiyeliniz var. Yönetim, girişimcilik, pazarlama veya finans gibi alanlarda başarılı olabilirsiniz.";
-      case "Law":
-        return "Hukuk ve adalet alanında çalışmak için uygun bir profiliniz var. Avukatlık, hakimlik, danışmanlık gibi alanlarda kendinizi geliştirebilirsiniz.";
-      default:
-        return "Farklı kariyer alanlarını keşfetmek için daha fazla bilgi toplamanız gerekebilir.";
-    }
+    const recommendations: Record<string, string> = {
+      Engineering:
+        "Mühendislik alanında başarılı olabilirsiniz. Özellikle yazılım, elektronik, inşaat gibi alanlar size uygun olabilir.",
+      Teaching:
+        "Eğitim alanında başarılı olabilirsiniz. Öğretmenlik, eğitmenlik veya özel eğitim gibi kariyerler sizin için ideal.",
+      Healthcare:
+        "Sağlık sektöründe çalışmayı düşünebilirsiniz. Doktorluk, hemşirelik veya diyetisyenlik alanlarında başarı sağlayabilirsiniz.",
+      Sports:
+        "Spor alanında kariyer yapabilirsiniz. Spor koçluğu, rehabilitasyon veya yönetim gibi roller size uygun olabilir.",
+      Arts:
+        "Sanat ve yaratıcılık alanında yeteneklisiniz. Tasarım, müzik, sinema gibi sektörlerde başarılı olabilirsiniz.",
+      Business:
+        "İş dünyasında yönetim veya girişimcilik gibi roller sizin için uygun olabilir.",
+      Law:
+        "Hukuk alanında çalışmak ilginizi çekebilir. Avukatlık, danışmanlık veya politika size uygun olabilir.",
+      Science:
+        "Bilimsel araştırmalar veya laboratuvar çalışmaları size uygun. Fizik, biyoloji veya kimya alanlarında çalışabilirsiniz.",
+      Social:
+        "Sosyal projelerde yer almak sizin için ideal. İnsanlarla çalışmak ve onları yönlendirmekten keyif alabilirsiniz.",
+      Technology:
+        "Teknoloji alanında başarılı olabilirsiniz. Yazılım geliştirme, yapay zeka veya veri bilimi size uygun olabilir.",
+    };
+
+    return recommendations[maxCategory] || "Daha fazla bilgiye ihtiyaç var.";
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -112,82 +125,47 @@ export default function Anket() {
   };
 
   return (
-    <div className="flex flex-col items-center min-h-screen p-8 bg-transparent">
+    <div className="flex flex-col items-center min-h-screen p-8 bg-black-100">
       <nav className="w-full flex justify-between items-center bg-transparent p-4 shadow-lg">
         <div className="text-white text-2xl font-bold">Brand</div>
         <ul className="hidden sm:flex gap-8 text-white">
-          <li>
-            <a href="/" className="hover:text-gray-300">
-              Anasayfa
-            </a>
-          </li>
-          <li>
-            <a href="#" className="hover:text-gray-300">
-              Hakkımızda
-            </a>
-          </li>
-          <li>
-            <a href="/" className="hover:text-gray-300">
-              Servislerimiz
-            </a>
-          </li>
-          <li>
-            <a href="#" className="hover:text-gray-300">
-              İletişim
-            </a>
-          </li>
+          <li><a href="/" className="hover:text-gray-300">Anasayfa</a></li>
+          <li><a href="#" className="hover:text-gray-300">Hakkımızda</a></li>
+          <li><a href="/" className="hover:text-gray-300">Servislerimiz</a></li>
+          <li><a href="#" className="hover:text-gray-300">İletişim</a></li>
         </ul>
         <button className="sm:hidden text-white">
           <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16m-7 6h7" />
           </svg>
         </button>
       </nav>
-
-      <div className="bg-[#2b2b2b] text-white rounded-lg p-6 mt-6 max-w-xl w-full ">
-
-        <form onSubmit={handleSubmit}>
-          {[
-            "Bir mühendislik mesleği ile ilgilenir misiniz?",
-            "Öğretmenlik yapmak istiyor musunuz?",
-            "Sağlık sektöründe çalışmayı düşünüyor musunuz?",
-            "Spor ve fiziksel aktivitelerle ilgileniyor musunuz?",
-            "Sanat ve yaratıcı projelere ilgi duyar mısınız?",
-            "İş dünyasında yönetim ve liderlik becerileri gösterir misiniz?",
-            "Hukuk alanına ilgi duyuyor musunuz?",
-          ].map((question, index) => (
-            <div key={index} className="mb-6">
-              <label className="block">{question}</label>
-              <select
-                name={`question${index + 1}`}
-                value={answers[`question${index + 1}`]}
-                onChange={handleChange}
-                className="w-full mt-2 p-2 border border-gray-300 rounded-md text-black"
-                required
-              >
-                <option value="">Seçiniz</option>
-                <option value="1">Evet</option>
-                <option value="0">Hayır</option>
-              </select>
-            </div>
-          ))}
-          <div className="flex justify-center">
-            <button
-              type="submit"
-              className="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-500"
+      <h1 className="text-2xl font-bold mb-6 py-5">Kariyer Anketi</h1>
+      <form onSubmit={handleSubmit} className="bg-white p-6 rounded-lg shadow-md w-full max-w-2xl text-black">
+        {questions.map((question, index) => (
+          <div key={index} className="mb-4">
+            <label className="block font-medium">{question}</label>
+            <select
+              name={`question${index + 1}`}
+              value={answers[`question${index + 1}`] || ""}
+              onChange={handleChange}
+              className="mt-2 w-full p-2 border rounded"
+              required
             >
-              Sonuçları Göster
-            </button>
+              <option value="">Seçiniz</option>
+              <option value="1">Evet</option>
+              <option value="0">Hayır</option>
+            </select>
           </div>
-        </form>
-
-        {result && (
-          <div className="mt-6 p-4 bg-gray-800 text-white rounded-lg">
-            <h2 className="text-xl font-bold mb-4">Sonuçlar:</h2>
-            <p>{result}</p>
-          </div>
-        )}
-      </div>
+        ))}
+        <button
+          type="submit"
+          className="bg-blue-500 text-white px-4 py-2 rounded-md mt-4 w-full"
+        >
+          Sonuçları Göster
+        </button>
+      </form>
+      <div className="mt-6 text-white font-semibold">{result}</div>
     </div>
   );
 }

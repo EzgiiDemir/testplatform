@@ -12,13 +12,24 @@ const FilmRecommendation: React.FC = () => {
 
   const categories = [
     { id: 28, name: 'Aksiyon' },
-    { id: 35, name: 'Komedi' },
-    { id: 27, name: 'Korku' },
-    { id: 18, name: 'Dram' },
-    { id: 878, name: 'Bilim Kurgu' },
-    { id: 14, name: 'Fantezi' },
-    { id: 16, name: 'Animasyon' },
     { id: 12, name: 'Macera' },
+    { id: 16, name: 'Animasyon' },
+    { id: 35, name: 'Komedi' },
+    { id: 80, name: 'Suç' },
+    { id: 99, name: 'Belgesel' },
+    { id: 18, name: 'Dram' },
+    { id: 10751, name: 'Aile' },
+    { id: 14, name: 'Fantezi' },
+    { id: 36, name: 'Tarih' },
+    { id: 27, name: 'Korku' },
+    { id: 10402, name: 'Müzik' },
+    { id: 9648, name: 'Gizem' },
+    { id: 10749, name: 'Romantik' },
+    { id: 878, name: 'Bilim Kurgu' },
+    { id: 10770, name: 'TV Filmi' },
+    { id: 53, name: 'Gerilim' },
+    { id: 37, name: 'Western' },
+    { id: 10752, name: 'Savaş' }
   ];
 
   // Kategori seçim işlemi
@@ -47,7 +58,10 @@ const FilmRecommendation: React.FC = () => {
           const response = await axios.get(
             `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&with_genres=${genreIds}`
           );
-          setMovies(response.data.results.slice(0, 6)); // İlk 5 filmi alıyoruz
+          const filteredMovies = response.data.results.filter(
+            (movie: { vote_average: number; }) => movie.vote_average > 6
+          ); // 6.5 üzerindeki filmleri filtrele
+          setMovies(filteredMovies.slice(0, 21)); // İlk 9 filmi al
         } catch (error) {
           console.error('Film verileri alınırken hata oluştu:', error);
         }
@@ -116,20 +130,11 @@ const FilmRecommendation: React.FC = () => {
             <div className="p-4">
               <h3 className="text-xl font-semibold">{movie.title}</h3>
               <p className="text-sm text-gray-600">{movie.overview.slice(0, 150)}...</p>
+              <p className="text-sm text-gray-500 mt-2">Puan: {movie.vote_average}</p>
             </div>
           </div>
         ))}
       </div>
-
-      {/* API URL'sini Göster */}
-      {/* <div className="mt-6">
-        <h3 className="text-lg font-semibold">API URL:</h3>
-        <p className="text-sm">
-          <code>
-            https://api.themoviedb.org/3/discover/movie?api_key={API_KEY}&with_genres={user1Selection.join(',')},{user2Selection.join(',')}
-          </code>
-        </p>
-      </div> */}
     </div>
   );
 };
