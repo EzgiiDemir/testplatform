@@ -1,13 +1,11 @@
-'use client';
 import Image from 'next/image';
+
 export default function Home() {
   return (
     <div className="grid grid-rows-[auto_1fr_auto] items-center justify-items-center min-h-screen p-4 pb-20 gap-16 sm:p-5 font-[family-name:var(--font-geist-sans)]">
       {/* Navbar */}
-      <nav className="w-full flex justify-between items-center bg-transparent p-4 shadow-lg">
-        <div className="text-white text-2xl font-bold">
-          Brand
-        </div>
+      <nav className="flex justify-between items-center w-full">
+        <div className="text-white text-2xl font-bold">Brand</div>
         <ul className="hidden sm:flex gap-8 text-white">
           <li><a href="/" className="hover:text-gray-300">Anasayfa</a></li>
           <li><a href="#" className="hover:text-gray-300">Hakkımızda</a></li>
@@ -26,7 +24,13 @@ export default function Home() {
         <main className="flex flex-col gap-8 w-full">
           {/* First Content: Sevgiline Web Sitesi Yap */}
           <div className="flex flex-col items-center sm:items-start">
-          <Image src="https://static.vecteezy.com/system/resources/previews/001/864/734/non_2x/the-lovers-on-the-beach-free-photo.jpg" alt="Sevgiline Web Sitesi Yap" className="w-full h-auto rounded-lg shadow-lg" />
+            <Image
+              src="https://static.vecteezy.com/system/resources/previews/001/864/734/non_2x/the-lovers-on-the-beach-free-photo.jpg"
+              alt="Sevgiline Web Sitesi Yap"
+              width={600}
+              height={200}
+              className="rounded-lg shadow-lg"
+            />
             <div className="mt-4">
               <h2 className="text-2xl font-bold">Sevgiline Web Sitesi Yap</h2>
               <p className="text-gray-700 mt-2">
@@ -40,7 +44,13 @@ export default function Home() {
 
           {/* Second Content: Hangi Alanda İyisin? */}
           <div className="flex flex-col items-center sm:items-start">
-          <Image src="https://www.ohlone.edu/sites/default/files/users/tharmon/career-counseling.jpg" alt="Hangi Alanda İyisin?" className="w-full h-auto rounded-lg shadow-lg" />
+            <Image
+              src="https://images.pexels.com/photos/4065876/pexels-photo-4065876.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+              alt="Hangi Alanda İyisin?"
+              width={600}
+              height={200}
+              className="rounded-lg shadow-lg"
+            />
             <div className="mt-4">
               <h2 className="text-2xl font-bold">Hangi Alanda İyisin? Hangi Kariyer Senin İçin Daha Uygun?</h2>
               <p className="text-gray-700 mt-2">
@@ -54,7 +64,13 @@ export default function Home() {
 
           {/* Third Content: Ortak Filminizi Bulun */}
           <div className="flex flex-col items-center sm:items-start">
-          <Image src="https://th.bing.com/th/id/R.212a4b92380aa6aa7d2ad39d49138fd8?rik=qTP%2bQyy%2fMOrhCw&riu=http%3a%2f%2fww1.prweb.com%2fprfiles%2f2014%2f01%2f19%2f11503155%2fmovie-night_t_nv.jpg&ehk=fOPGxRC2EK2b5%2bQQ1lIGmqDbxgdtwV1odlRXYDmo3Hs%3d&risl=&pid=ImgRaw&r=0" alt="Ortak Film Bulun" className="w-full h-auto rounded-lg shadow-lg" />
+            <Image
+              src="https://th.bing.com/th/id/R.212a4b92380aa6aa7d2ad39d49138fd8?rik=qTP%2bQyy%2fMOrhCw&riu=http%3a%2f%2fww1.prweb.com%2fprfiles%2f2014%2f01%2f19%2f11503155%2fmovie-night_t_nv.jpg&ehk=fOPGxRC2EK2b5%2bQQ1lIGmqDbxgdtwV1odlRXYDmo3Hs%3d&risl=&pid=ImgRaw&r=0"
+              alt="Ortak Film Bulun"
+              width={600}
+              height={200}
+              className="rounded-lg shadow-lg"
+            />
             <div className="mt-4">
               <h2 className="text-2xl font-bold">Film Zevkinizi Birleştirin ve Ortak Filminizi Bulun</h2>
               <p className="text-gray-700 mt-2">
@@ -66,16 +82,22 @@ export default function Home() {
             </div>
           </div>
 
+          {/* Fourth Content: Tarot */}
           <div className="flex flex-col items-center sm:items-start">
-          <Image src="https://spiritual-medium-caroline.com/wp-content/uploads/2023/03/81jRz3roesL._AC_UF8941000_QL80_.jpg" alt="Tarot fali" className="w-full h-auto rounded-lg shadow-lg" />
+            <Image
+              src="https://spiritual-medium-caroline.com/wp-content/uploads/2023/03/81jRz3roesL._AC_UF8941000_QL80_.jpg"
+              alt="Tarot Falı"
+              width={600}
+              height={200}
+              className="rounded-lg shadow-lg"
+            />
             <div className="mt-4">
               <h2 className="text-2xl font-bold">Geçmiş, Şimdi ve Gelecek: Tarot Yolculuğunuz Başlasın</h2>
               <p className="text-gray-700 mt-2">
-              Tarot kartları, geçmişiniz, şimdiki durumunuz ve geleceğiniz hakkında rehberlik eder. Geçmiş kartınız size etkenleri, şimdi kartınız mevcut durumu ve gelecek kartınız ise potansiyel yolunuzu gösterecek.
-İyi niyet ve içsel rehberlik her zaman yanınızda olsun.
+                Tarot kartları, geçmişiniz, şimdiki durumunuz ve geleceğiniz hakkında rehberlik eder. Geçmiş kartınız size etkenleri, şimdi kartınız mevcut durumu ve gelecek kartınız ise potansiyel yolunuzu gösterecek.
               </p>
               <a href="tarot" className="text-blue-500 hover:underline mt-4 block">
-              Şimdi kartlarınızı keşfedin!
+                Şimdi Kartlarınızı Keşfedin!
               </a>
             </div>
           </div>
@@ -90,12 +112,11 @@ export default function Home() {
             </div>
           </div>
         </aside>
-
       </div>
 
       {/* Footer */}
       <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        {/* Footer content */}
+        {/* Footer içeriği buraya */}
       </footer>
     </div>
   );

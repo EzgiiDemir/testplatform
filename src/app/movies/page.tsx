@@ -129,11 +129,14 @@ const FilmRecommendation: React.FC = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 text-black">
         {movies.map((movie) => (
           <div key={movie.id} className="rounded-lg shadow-lg bg-white overflow-hidden">
-            <Image
-              src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-              alt={movie.title}
-              className="w-full h-[300px] object-cover"
-            />
+           <Image
+  src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+  alt={movie.title}
+  width={500} // Sabit genişlik
+  height={300} // Sabit yükseklik
+  className="w-full h-[300px] object-cover"
+/>
+
             <div className="p-4">
               <h3 className="text-xl font-semibold">{movie.title}</h3>
               <p className="text-sm text-gray-600">{movie.overview.slice(0, 150)}...</p>
