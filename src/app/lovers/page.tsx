@@ -149,7 +149,7 @@ const SiteCreator: React.FC = () => {
               name="title"
               value={customization.title}
               onChange={handleCustomizationChange}
-              className="w-full p-2 border rounded"
+              className="w-full p-2 border rounded text-black"
             />
           </div>
           <div className="mb-4">
@@ -158,7 +158,7 @@ const SiteCreator: React.FC = () => {
               name="subtitle"
               value={customization.subtitle}
               onChange={handleCustomizationChange}
-              className="w-full p-2 border rounded"
+              className="w-full p-2 border rounded text-black"
             />
           </div>
           <div className="mb-4">
@@ -168,7 +168,7 @@ const SiteCreator: React.FC = () => {
               name="image"
               value={customization.image}
               onChange={handleCustomizationChange}
-              className="w-full p-2 border rounded"
+              className="w-full p-2 border rounded text-black"
             />
           </div>
           <div className="mb-4">
