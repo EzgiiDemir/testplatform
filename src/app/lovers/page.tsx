@@ -89,12 +89,12 @@ const SiteCreator: React.FC = () => {
   };
 
   // Paylaşılabilir Link Simülasyonu
-  const getShareableLink = () => {
-    const simulatedLink = `https://example.com/shared-site?title=${encodeURIComponent(
-      customization.title
-    )}&subtitle=${encodeURIComponent(customization.subtitle)}`;
-    alert(`Paylaşılabilir Link: ${simulatedLink}`);
-  };
+  // const getShareableLink = () => {
+  //   const simulatedLink = `https://example.com/shared-site?title=${encodeURIComponent(
+  //     customization.title
+  //   )}&subtitle=${encodeURIComponent(customization.subtitle)}`;
+  //   alert(`Paylaşılabilir Link: ${simulatedLink}`);
+  // };
 
   return (
     <div className="container mx-auto p-6">
