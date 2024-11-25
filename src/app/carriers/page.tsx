@@ -22,7 +22,7 @@ export default function Anket() {
     "Yaratıcılık gerektiren bir projede yer almak sizi mutlu eder mi?",
     "Hukuki problemlerle ilgilenmek veya adalet için çalışmak ilginizi çeker mi?",
     "Bilimsel araştırmalar veya deneyler yapmak sizin için ilgi çekici mi?",
-    "Bağımsız çalışmayı mı, yoksa ekip çalışmalarını mı tercih edersiniz?",
+    "Ekip çalışmalarını sever misiniz?",
     "Zihinsel olarak karmaşık oyunlar veya bulmacalar çözmekten keyif alır mısınız?",
     "Kendi başınıza proje veya iş geliştirmek sizin için motive edici mi?",
     "Sosyal sorumluluk projelerine katılmayı sever misiniz?",
@@ -110,7 +110,7 @@ export default function Anket() {
       Science:
         "Bilimsel araştırmalar veya laboratuvar çalışmaları size uygun. Fizik, biyoloji veya kimya alanlarında çalışabilirsiniz.",
       Social:
-        "Sosyal projelerde yer almak sizin için ideal. İnsanlarla çalışmak ve onları yönlendirmekten keyif alabilirsiniz.",
+      "Sosyal projelerde yer almak sizin için ideal. İnsanlarla çalışmak ve onları yönlendirmekten keyif alabilirsiniz. Psikolog, İnsan Kaynakları Uzmanı, Pazarlama veya Halkla İlişkiler Uzmanı, Sivil Toplum Kuruluşu Çalışanı gibi size uygun olabilir.",
       Technology:
         "Teknoloji alanında başarılı olabilirsiniz. Yazılım geliştirme, yapay zeka veya veri bilimi size uygun olabilir.",
     };

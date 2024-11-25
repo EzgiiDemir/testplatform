@@ -335,52 +335,58 @@ export default function TarotApp() {
       </nav>
 
       <div className="mt-10">
-        <h2 className="text-xl mb-4">Kartlarınızı Seçin 🔮</h2>
-        <div className="grid grid-cols-10 gap-3 mb-8">
-          {shuffledCards.map((card) => (
-            <div
-              key={card.name}
-              className={`cursor-pointer p-1 rounded-lg border-2 ${
-                selectedCards.includes(card.name) ? "border-green-500" : "border-gray-700"
-              }`}
-              onClick={() => handleCardSelect(card.name)}
-              style={{
-                backgroundImage: `url('https://i.etsystatic.com/38886743/r/il/0674fa/4539607518/il_fullxfull.4539607518_fhmu.jpg')`,
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-                height: "140px",
-                width: "90px",
-              }}
-            >
-              <img
-                src={card.img}
-                alt={card.name}
-                className="w-full h-full object-cover rounded-lg opacity-0" // Kartın arkasında görsel gizlendi
-              />
-            </div>
-          ))}
-        </div>
-
-        <button
-          className="bg-purple-600 text-white py-2 px-6 rounded-lg"
-          onClick={handleShowResult}
-          disabled={selectedCards.length < 3}
+    <h2 className="text-xl mb-4 text-center">Kartlarınızı Seçin 🔮</h2>
+    <div className="grid grid-cols-5 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 gap-3 mb-8">
+      {shuffledCards.map((card) => (
+        <div
+          key={card.name}
+          className={`cursor-pointer p-1 rounded-lg border-2 ${
+            selectedCards.includes(card.name)
+              ? "border-green-500"
+              : "border-gray-700"
+          }`}
+          onClick={() => handleCardSelect(card.name)}
+          style={{
+            backgroundImage: `url('https://i.etsystatic.com/38886743/r/il/0674fa/4539607518/il_fullxfull.4539607518_fhmu.jpg')`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            height: "140px",
+            width: "90px",
+          }}
         >
-          Sonuçları Göster
-        </button>
+          <img
+            src={card.img}
+            alt={card.name}
+            className="w-full h-full object-cover rounded-lg opacity-0"
+          />
+        </div>
+      ))}
+    </div>
 
-        {showResult && (
-          <div className="mt-10 text-center">
-            <h3 className="text-2xl mb-4">Seçtiğiniz Kartlar</h3>
-            {selectedCards.map((cardName) => {
-              const cardDetails = getCardDetails(cardName);
-              return (
-                <div key={cardName} className="mb-4">
-                  <img src={cardDetails?.img} alt={cardName} className="w-32 mx-auto" />
-                  <h4 className="text-xl">{cardName}</h4>
-                  <p>{cardDetails?.description}</p>
-                  <p className="italic mt-2">{getPersonalizedComment(cardName)}</p>
-                </div>
+    <button
+      className="bg-purple-600 text-white py-2 px-6 rounded-lg"
+      onClick={handleShowResult}
+      disabled={selectedCards.length < 3}
+    >
+      Sonuçları Göster
+    </button>
+
+    {showResult && (
+      <div className="mt-10 text-center">
+        <h3 className="text-2xl mb-4">Seçtiğiniz Kartlar</h3>
+        {selectedCards.map((cardName) => {
+          const cardDetails = getCardDetails(cardName);
+          return (
+            <div key={cardName} className="mb-4">
+              <img
+                src={cardDetails?.img}
+                alt={cardName}
+                className="w-32 mx-auto"
+              />
+              <h4 className="text-xl">{cardName}</h4>
+              <p>{cardDetails?.description}</p>
+              <p className="italic mt-2">{getPersonalizedComment(cardName)}</p>
+            </div>
               );
             })}
           </div>
